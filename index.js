@@ -25,4 +25,4 @@ app.use(
 require('./routes')
 
 app.listen(3000)
-console.log(`Clock server is now listening on port 3000`)
+console.log(`Clock server is now online`)
