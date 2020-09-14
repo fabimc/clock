@@ -8,7 +8,7 @@ const main = require('./controllers/main.js')
 
 router.get('/', main.index)
 router.get('/iclock/cdata', clock.configuration)
-router.post('/iclock/cdata', clock.operations)
+router.post('/iclock/cdata', clock.configuration)
 
 app.use(router.routes())
 app.use(router.allowedMethods())
