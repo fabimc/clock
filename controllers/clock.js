@@ -11,8 +11,8 @@ module.exports.configuration = async ctx => {
 
 module.exports.operations = async ctx => {
   const { SN, options, pushver, language, pushcommkey } = ctx.request.query  
-  //const body = ctx.request.body
-  //console.log('Payload', JSON.stringify(body, null, 4))
+  const body = ctx.request.body
+  console.log('Payload', JSON.stringify(body, null, 4))
   await ctx.render('configuration', {
     serialNumber: SN,
     options,
