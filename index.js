@@ -1,6 +1,6 @@
 const Koa = require('koa')
 const hbs = require('koa-hbs')
-const bodyParser = require("koa-bodyparser");
+const bodyParser = require('koa-bodyparser')
 const app = new Koa()
 
 exports.app = app
@@ -11,7 +11,7 @@ app.proxy = true
 // misc handlebars helpers
 require('./helpers/handlebars')
 
-app.use(bodyParser());
+app.use(bodyParser({ enableTypes: ['text'] }))
 
 // load up the handlebars middlewear
 app.use(
