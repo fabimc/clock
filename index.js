@@ -25,26 +25,24 @@ const consoleFormat = winston.format.combine(
   winston.format.colorize(),
   winston.format.timestamp(),
   //winston.format.align(),
-  winston.format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message} ${info.res.status} \
-  payload: ${JSON.stringify(info.req.body, null, 4)}`)
+  winston.format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message} ${info.res.status} ${JSON.stringify(info.req.body, null, 4)}`)
 )
 app.use(
   logger({
     reqSelect: ['body'],
     transports: [
-      new winston.transports.File({
-        filename: 'error.log',
-        level: 'error',
-        format: winstonFormat
-      }),
-      new winston.transports.File({
-        filename: 'combined.log',
-        format: winstonFormat,
-        
-      }),
+      // new winston.transports.File({
+      //   filename: 'error.log',
+      //   level: 'error',
+      //   format: winstonFormat
+      // }),
+      // new winston.transports.File({
+      //   filename: 'combined.log',
+      //   format: winstonFormat,
+      // }),
       new winston.transports.Console({
         level: 'info',
-        format: consoleFormat,
+        format: winstonFormat,
       })
     ]
   })
