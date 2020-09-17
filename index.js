@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser')
 const winston = require('winston')
 const { logger } = require('koa2-winston')
 const PORT = process.env.PORT || 3000
+
 const app = new Koa()
 
 exports.app = app
@@ -25,24 +26,30 @@ const consoleFormat = winston.format.combine(
   winston.format.colorize(),
   winston.format.timestamp(),
   //winston.format.align(),
-  winston.format.printf(info => `[${info.timestamp}] ${info.level}: ${info.message} ${info.res.status} ${JSON.stringify(info.req.body, null, 4)}`)
+  winston.format.printf(
+    info =>
+      `[${info.timestamp}] ${info.level}: ${info.message} ${
+        info.res.status
+      } ${JSON.stringify(info.req.body, null, 4)}`
+  )
 )
 app.use(
   logger({
     reqSelect: ['body'],
     transports: [
-      // new winston.transports.File({
-      //   filename: 'error.log',
-      //   level: 'error',
-      //   format: winstonFormat
-      // }),
-      // new winston.transports.File({
-      //   filename: 'combined.log',
-      //   format: winstonFormat,
-      // }),
+      new winston.transports.File({
+        filename: 'error.log',
+        level: 'error',
+        format: winstonFormat,
+      }),
+      new winston.transports.File({
+        filename: './request_logs/request.log',
+        format: winstonFormat,
+        maxsize: 500
+      }),
       new winston.transports.Console({
         level: 'info',
-        format: winstonFormat,
+        format: consoleFormat
       })
     ]
   })
